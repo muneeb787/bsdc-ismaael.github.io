@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A small website example">
+    <title>My Small Website</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2; 
+            color: #333; 
+        }
+        header {
+            background-color: #4CAF50; 
+            color: white;
+            text-align: center;
+            padding: 1.5em 0;
+        }
+        nav {
+            background-color: #333; 
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        nav a:hover {
+            background-color: #575757; 
+            color: white;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: #fff; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+        }
+        
+        #contactForm {
+            display: none;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        
+        #cv-links {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff; 
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+        #cv-links a {
+            color: #2196F3; 
+            text-decoration: none; 
+        }
+        #cv-links a:hover {
+            text-decoration: underline; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to The Life Of Ismaael</h1>
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact" onclick="showContactForm()">Contact</a>
+        <a href="#cv">CV & Links</a>
+    </nav>
+
+    <section id="home">
+        <h2 style="color: #4CAF50;">Home</h2> 
+        <p>This is the homepage of my small website. Here you can find out about me and my hobbies :3 .</p>
+    </section>
+
+    <section id="about">
+        <h2 style="color: #2196F3;">About</h2> 
+        <p>I am currently 21 and i love palying football as well as watching it. I iike to read books and i also enjoy going on walks especially during the night when the lights are lit.</p>
+    </section>
+
+    <section id="contact">
+        <h2 style="color: #FF5722;">Contact</h2> 
+        <p>If you'd like to reach out, feel free to send an email to <a href="mailto:example@example.com" style="color: #FF5722;">example@example.com</a>.</p>
+        <button onclick="showContactForm()" style="padding: 10px 20px; background-color: #FF5722; color: white; border: none; border-radius: 5px; cursor: pointer;">Contact Us</button>
+
+        
+        <div id="contactForm">
+            <h3>Contact Form</h3>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" placeholder="Your message" rows="5" required></textarea>
+
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </section>
+
+    <section id="cv">
+        <h2 style="color: #FF5722;">CV & Links</h2>
+        <div id="cv-links">
+            <p>You can view and download my CV from the link below:</p>
+            <a href="path/to/your/cv.pdf" target="_blank">Download My CV</a>
+            <h3>Other Links</h3>
+            <ul>
+                <li><a href="https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fyourprofile&data=05%7C02%7C30250271%40bsdc.ac.uk%7Cbd7675abefce4a84e0a008dcec4080c6%7Cb61820867963492c9d602886fb6b5abd%7C0%7C0%7C638645009001475577%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0%7C%7C%7C&sdata=ycHJaGO4WoP%2FvqjBF%2FUqqZDVxEP9c6u3iZeBzCkXSNU%3D&reserved=0" target="_blank">LinkedIn</a></li>
+                <li><a href="https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fyourprofile&data=05%7C02%7C30250271%40bsdc.ac.uk%7Cbd7675abefce4a84e0a008dcec4080c6%7Cb61820867963492c9d602886fb6b5abd%7C0%7C0%7C638645009001495862%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0%7C%7C%7C&sdata=ibnQUv9V6qgxmBXdXyIhzn0JZ6ug9IMrHfTNAZwNiG8%3D&reserved=0" target="_blank">GitHub</a></li>
+                <li><a href="https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fyourportfolio.com%2F&data=05%7C02%7C30250271%40bsdc.ac.uk%7Cbd7675abefce4a84e0a008dcec4080c6%7Cb61820867963492c9d602886fb6b5abd%7C0%7C0%7C638645009001508365%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0%7C%7C%7C&sdata=s0KR7hcel%2BNPS4sRkvOsTPHdsDjPqmSxhwqJXlTun3U%3D&reserved=0" target="_blank">Portfolio</a></li>
+            
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 My Small Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+       
+        function showContactForm() {
+            var form = document.getElementById('contactForm');
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>
