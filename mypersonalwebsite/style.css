@@ -1,0 +1,107 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://wallpapercave.com/wp/wp12500238.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #333;
+}
+header {
+    background-color: rgba(176, 12, 241, 0.9);
+    color: white;
+    text-align: center;
+    padding: 1.5em 0;
+}
+nav {
+    background-color: rgba(51, 51, 51, 0.8);
+    overflow: hidden;
+}
+nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 18px;
+}
+nav a:hover {
+    background-color: rgba(87, 87, 87, 0.8);
+}
+section {
+    padding: 20px;
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    color: #4CAF50;
+}
+#about-me h2 { color: #4CAF50; }
+#desires h2 { color: #2196F3; }
+#contact h2 { color: #ee5b05; }
+#cv h2 { color: #d41093; }
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(51, 51, 51, 0.8);
+    color: white;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
+#contactForm {
+    display: none;
+    margin-top: 20px;
+    background-color: rgba(249, 249, 249, 0.9);
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+input[type="text"], input[type="email"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #ae1fb3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.skill {
+    margin: 10px 0;
+}
+
+.skill p {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.skill-bar {
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.skill-bar span {
+    display: block;
+    height: 20px;
+    background-color: #4CAF50;
+    border-radius: 5px;
+}

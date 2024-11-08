@@ -1,1 +1,0 @@
-# bsdc-ismaael.github.io
