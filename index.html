@@ -16,50 +16,38 @@
     <nav>
         <a href="#about-me">About Me</a>
         <a href="#desires">Desires</a>
-        <a href="#skills">Skills</a>
         <a href="#contact" onclick="showContactForm()">Contact</a>
+        <a href="projects.html">Projects</a>
         <a href="#cv">CV & Links</a>
     </nav>
 
     <section id="about-me">
-        <h2>About Me</h2> 
-        <p>My name is Ismaael and i am a 21-year-old networking student who combines my passion for technology with my love for football because i always strive to score both in the classroom and on the field.</p>
+        <h2>About Me</h2>
+        <p>My name is Ismaael and I am a 21-year-old IT Networking student with a passion for football whether playing on the field or cheering from the sidelines. My love for the game shines through as I work diligently toward my goal of becoming an IT Specialist. I combine my technical skills with a competitive spirit, ready to tackle any challenge that comes my way.</p>
     </section>
 
     <section id="desires">
-        <h2>Desires</h2> 
-        <p>I want people to recognize my strong networking skills from configuring and managing networks to troubleshooting issues and implementing security protocols, all of which I have worked hard to master to ensure reliable, efficient systems.</p>
-    </section>
-
-    <section id="skills">
-        <h2>Skills</h2>
-        <div class="skill">
-            <p>Networking</p>
-            <div class="skill-bar"><span style="width: 40%;"></span></div>
-        </div>
-        <div class="skill">
-            <p>Programming</p>
-            <div class="skill-bar"><span style="width: 40%;"></span></div>
-        </div>
-        <div class="skill">
-            <p>IT Troubleshooting</p>
-            <div class="skill-bar"><span style="width: 60%;"></span></div>
-        </div>
+        <h2>Desires</h2>
+        <p>I aim for employers to recognize my skills and talents through the website I created. Some may say it's an "alternative CV." It showcases my expertise in IT Networking, demonstrating my hands-on experience with various technologies and my ability to tackle real-world challenges. This project reflects my commitment to continuous learning and my readiness to contribute effectively in a professional setting.</p>
     </section>
 
     <section id="contact">
-        <h2>Contact</h2> 
-        <p>Feel free to email me at <a href="mailto:example@example.com">ismaaelbaig2003@gmail.com</a>.</p>
+        <h2>Contact</h2>
+        <p>If you'd like to reach out and present me with an opportunity to prove my skills, feel free to email me at <a href="mailto:example@example.com">ismaaelbaig2003@gmail.com</a>.</p>
         <button onclick="showContactForm()">Contact Me</button>
+
         <div id="contactForm">
             <h3>Contact Form</h3>
             <form>
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" placeholder="Your name" required>
+
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" placeholder="Your email" required>
+
                 <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
+                <textarea id="message" name="message" placeholder="Your message" rows="5" required></textarea>
+
                 <input type="submit" value="Submit">
             </form>
         </div>
@@ -68,8 +56,9 @@
     <section id="cv">
         <h2>CV & Links</h2>
         <div id="cv-links">
+            <p>Below is a link where you can download my CV:</p>
             <a href="CV.pdf">Download My CV</a>
-            <h3>Other Links:</h3>
+            <h3>LinkedIn</h3>
             <ul>
                 <li><a href="https://www.linkedin.com/in/ismaael-baig-842548260/" target="_blank">LinkedIn</a></li>
             </ul>
@@ -79,11 +68,9 @@
     <script>
         function showContactForm() {
             var form = document.getElementById('contactForm');
-            form.style.display = form.style.display === 'block' ? 'none' : 'block';
+            form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
         }
     </script>
 
 </body>
 </html>
-
-
