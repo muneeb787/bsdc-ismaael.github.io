@@ -16,14 +16,14 @@
             <ul>
                 <li><a href="paraathi.html">Home</a></li>
                 <li><a href="menu.html">Menu</a></li>
-                <li><a href="order.html">Order Here</a></li> <!-- Added Order Here link -->
+                <li><a href="order.html">Order Here</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
     
     <!-- Contact Section -->
-    <section class="content">
+    <section class="content"> 
         <h2 class="contact-heading">Get In Touch</h2>
         <p class="contact-subheading">We would love to hear from you! Reach out to us for any questions or to place your order.</p>
 
@@ -44,33 +44,7 @@
         </div>
     </section>
 
-    <script>
-        // Handle form submission
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault();  // Prevent the default form submission
-            
-            // Send the form data to Formspree
-            const form = event.target;
-            const formData = new FormData(form);
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Show success message
-                    document.getElementById('success-message').style.display = 'block';
-                    form.reset();  // Reset the form fields
-                } else {
-                    alert("Something went wrong. Please try again.");
-                }
-            })
-            .catch(error => {
-                console.error("Error submitting the form:", error);
-                alert("There was an error. Please try again.");
-            });
-        });
-    </script>
+    <script src="contact.js"></script>
 
 </body>
 </html>
