@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Paratha Gali</title>
+    <link rel="stylesheet" href="payment.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="images/website_logo.JPG" alt="Paratha Gali Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="paraathi.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="order.html">Order Here</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Payment Section -->
+    <section class="payment-content">
+        <h2>Complete Your Order</h2>
+
+        <div class="order-summary">
+            <h3>Order Summary</h3>
+            <ul id="orderSummaryList"></ul>
+            <p id="customerInfo"></p> <!-- Customer name and email -->
+        </div>
+
+        <div class="payment-options">
+            <button class="paypal-button">Pay with PayPal</button>
+            <button class="stripe-button">Pay with Stripe</button>
+        </div>
+    </section>
+
+    <script src="payment.js"></script>
+
+</body>
+</html>

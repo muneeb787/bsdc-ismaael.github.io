@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Items - Paratha Gali</title>
+    <link rel="stylesheet" href="order.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="images/website_logo.JPG" alt="Paratha Gali Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="paraathi.html">Home</a></li>
+                <li><a href="menu.html?order=true" class="active">Menu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="order_details.html">Order Here</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="order-form-container">
+        <h2>Select Your Menu Items</h2>
+        <p>Click on the items you wish to order.</p>
+
+        <form id="orderItemsForm">
+            <button type="button" onclick="window.location.href='menu.html?order=true#classic-paratha'">Classic Paratha</button>
+            <button type="button" onclick="window.location.href='menu.html?order=true#aloo-paratha'">Aloo Paratha</button>
+            <button type="button" onclick="window.location.href='menu.html?order=true#keema-paratha'">Keema Paratha</button>
+            <button type="button" onclick="window.location.href='menu.html?order=true#nutella-paratha'">Nutella Paratha</button>
+            <button type="button" onclick="window.location.href='menu.html?order=true#desi-breakfast'">Desi Breakfast</button>
+        </form>
+    </section>
+
+</body>
+</html>

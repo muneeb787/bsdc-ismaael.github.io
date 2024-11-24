@@ -3,62 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FITPAL - Your Fitness Companion">
-    <title>FITPAL - Your Fitness Companion</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Paratha Gali</title>
+    <link rel="stylesheet" href="paraathi.css">
 </head>
 <body>
 
+    <!-- Header Section -->
     <header>
+        <div class="logo">
+            <img src="images/website_logo.JPG" alt="Paratha Gali Logo">
+        </div>
         <nav>
-            <a href="#home">Home</a>
-            <a href="#features">Features</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#about">About Us</a>
-            <a href="#login">Login</a>
+            <ul>
+                <li><a href="paraathi.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="order.html">Order Here</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </nav>
     </header>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Your Personal Fitness Companion</h1>
-            <p>Track your fitness journey, manage your meals and reach your health goals with FITPAL.</p>
-            <a href="#signup" class="btn">Get Started</a>
-            <a href="#signup" class="btn secondary">Sign Up Free</a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Welcome to Paratha Gali</h1>
+            <p>Where every bite tells the story of home, a desi breakfast rooted in tradition.</p>
         </div>
     </section>
 
-    <section id="features">
-        <h2>Our Features</h2>
-        <div class="feature">
-            <h3>Workout Tracker</h3>
-            <p>Log and track your workouts to stay on top of your fitness routine.</p>
+    <!-- Food Pictures Section -->
+    <section class="food-pictures">
+    <div class="food-container">
+        <img src="images/breakfast.JPG" alt="Food Image 1">
+        <img src="images/lunch.JPG" alt="Food Image 2">
+        <img src="images/dinner.JPG" alt="Food Image 3">
+    </div>
+    </section>
+
+    <!-- Location & Collection Only Section -->
+    <section class="location-info">
+        <div class="location-container">
+            <h3>Our Location</h3>
+            <p><strong>Tong Street Chuckery, Walsall WS1 2DX</strong></p>
         </div>
-        <div class="feature">
-            <h3>Meal Planner</h3>
-            <p>Plan your meals and track your nutrition for a balanced diet.</p>
-        </div>
-        <div class="feature">
-            <h3>Goal Setter</h3>
-            <p>Set your fitness goals and track your progress over time.</p>
-        </div>
-        <div class="feature">
-            <h3>Progress Visualizer</h3>
-            <p>Visualize your progress with detailed charts and graphs.</p>
+        <div class="collection-info">
+            <h3>Collection Only</h3>
+            <p>We are a collection-only store. Come and enjoy our delicious parathas and more, made fresh daily!</p>
         </div>
     </section>
 
-    <footer>
-        <div class="footer-links">
-            <a href="#privacy-policy">Privacy Policy</a>
-            <a href="#terms">Terms & Conditions</a>
-            <div class="social-links">
-                <a href="https://facebook.com">Facebook</a>
-                <a href="https://twitter.com">Twitter</a>
-                <a href="https://instagram.com">Instagram</a>
-            </div>
-        </div>
-    </footer>
+    <script>
+        // JavaScript for Scroll Animation (to animate each time the section enters the viewport)
+        document.addEventListener("DOMContentLoaded", function () {
+            const locationInfo = document.querySelector(".location-info");
+            const collectionInfo = document.querySelector(".collection-info");
+
+            // Function to reset and trigger the animation
+            function triggerAnimationOnScroll() {
+                const locationPosition = locationInfo.getBoundingClientRect().top;
+                const collectionPosition = collectionInfo.getBoundingClientRect().top;
+
+                if (locationPosition < window.innerHeight) {
+                    locationInfo.classList.add("visible");
+                } else {
+                    locationInfo.classList.remove("visible");
+                }
+
+                if (collectionPosition < window.innerHeight) {
+                    collectionInfo.classList.add("visible");
+                } else {
+                    collectionInfo.classList.remove("visible");
+                }
+            }
+
+            window.addEventListener("scroll", triggerAnimationOnScroll);
+        });
+
+        // JavaScript for sticky header functionality
+        window.onscroll = function() {stickyHeader()};
+
+        var header = document.querySelector("header");
+        var sticky = header.offsetTop;
+
+        function stickyHeader() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+    </script>
 
 </body>
 </html>

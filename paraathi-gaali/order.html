@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Paratha Gali</title>
+    <link rel="stylesheet" href="order.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="images/website_logo.JPG" alt="Paratha Gali Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="paraathi.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="order.html" class="active">Order Here</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Order Form Section -->
+    <section class="content">
+        <h2>Order Form</h2>
+
+        <form id="orderForm">
+            <!-- Customer Details -->
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" placeholder="Your Name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" placeholder="Your Email" required>
+
+            <!-- Select Meal Category -->
+            <label for="mealCategory">Select Meal Category:</label>
+            <select id="mealCategory" name="mealCategory" required>
+                <option value="">-- Select --</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="paratha">Paratha</option>
+                <option value="wraps">Wraps</option>
+                <option value="hotDrinks">Hot Drinks</option>
+                <option value="extras">Extras</option>
+            </select>
+
+            <!-- Additional Dropdown for selecting specific items -->
+            <div id="additionalOptions" style="display: none;">
+                <label for="categoryItems">Select Item:</label>
+                <select id="categoryItems" name="categoryItems">
+                    <!-- Items will be dynamically populated here -->
+                </select>
+                <button type="button" id="addToCart">Add to Cart</button>
+            </div>
+
+            <label for="specialInstructions">Special Instructions:</label>
+            <textarea id="specialInstructions" placeholder="Any special requests?"></textarea>
+
+        </form>
+
+        <!-- Cart Section -->
+        <h3 id="cartTitle">Your Cart</h3>
+        <!-- Cart List will appear here -->
+        <ul id="cartList">
+            <!-- Cart items will be added dynamically here -->
+        </ul>
+
+        <button id="submitOrder">Submit Order</button>
+    </section>
+
+    <!-- External JavaScript File -->
+    <script src="order.js"></script>
+
+</body>
+</html>

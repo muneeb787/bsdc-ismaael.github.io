@@ -1,0 +1,275 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('images/background2.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 100px; /* Ensure the body content doesn't overlap with the header */
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #800020; /* Red background on page load */
+    padding: 20px 20px;
+    z-index: 1000; /* Ensure the header is always above other content */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Added shadow for header */
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Sticky Navigation: Transparent background after scroll */
+header.sticky {
+    background-color: transparent; /* Transparent background when scrolling */
+    box-shadow: none; /* Remove shadow when sticky */
+}
+
+/* Logo */
+header .logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Navigation */
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li a {
+    color: #FFEB3B;  /* Yellow color for links */
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #ff7043;
+    transform: scale(1.1);
+}
+
+/* Content Section */
+.content {
+    padding: 40px 30px;
+    text-align: center;
+    margin-top: 150px; /* Increased margin-top to ensure header doesn't overlap */
+    background-color: #800020; /* Changed the background color to match the logo's red */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    animation: fadeIn 1.5s forwards; /* Add fade-in effect */
+}
+
+/* Form Heading */
+.content h2 {
+    font-size: 2.5rem;
+    color: #FFEB3B; /* Yellow color for the heading */
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Input Fields */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #800020;
+    outline: none;
+}
+
+/* Labels for Input Fields */
+label {
+    color: #FFEB3B; /* Yellow color for labels */
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+/* Add to Cart Button Styling */
+button {
+    padding: 15px 25px;
+    background-color: #800020;
+    color: rgb(247, 250, 50);
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeInUp 1.5s 1s forwards;
+}
+
+button:hover {
+    background-color: #ff7043;
+    transform: scale(1.05); /* Slight scale on hover */
+}
+
+/* Cart Section */
+#cartSection {
+    margin-top: 30px;
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: left;
+    color: #333;
+}
+
+/* Cart Section Title */
+#cartTitle {
+    font-size: 1.8rem;
+    color: #FFEB3B; /* Yellow color for section title */
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Cart Items */
+#cartList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    color: #fdfa36;
+}
+
+#cartList li {
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#cartList li span {
+    font-weight: normal;
+    color: #333;
+}
+
+/* Remove Button */
+#cartList li button {
+    background-color: #ff7043;
+    color: white;
+    border: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#cartList li button:hover {
+    background-color: #ff5722;
+}
+
+/* Cart Footer */
+#cartFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#cartFooter button {
+    background-color: #800020;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#cartFooter button:hover {
+    background-color: #ff7043;
+}
+
+/* Special Instructions Textarea */
+#specialInstructions {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    height: 100px;
+}
+
+#specialInstructions:focus {
+    border-color: #800020;
+    outline: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px); /* Start below the element */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

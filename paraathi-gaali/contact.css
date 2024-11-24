@@ -1,0 +1,141 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('images/background2.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #FFEB3B;
+    line-height: 1.6;
+    padding-top: 80px; /* Adjusted top padding to prevent overlap with fixed header */
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #800020; /* Red background color from the logo */
+    padding: 15px 20px;
+    z-index: 1000;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: none;
+}
+
+header .logo img {
+    width: 50px; /* Adjusted logo size */
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li a {
+    color: #FFEB3B; /* Yellow color for the navigation links */
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #ff7043;
+    transform: scale(1.1);
+}
+
+/* Content Section */
+.content {
+    padding: 60px 20px;
+    text-align: center;
+    margin-top: 70px; /* Ensured proper margin */
+    background-color: rgba(184, 6, 6, 0.8); /* Light background to make text readable */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: windowSlideIn 1s ease-out; /* Added slide-in effect */
+}
+
+.contact-heading,
+.contact-subheading {
+    opacity: 0;
+    animation: fadeInUp 1s forwards;
+    animation-delay: 0.5s; /* Add slight delay to header text */
+}
+
+.contact-form {
+    background-color: #800020; /* Red background for the form */
+    padding: 30px;
+    margin-top: 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: windowSlideIn 1.5s ease-out; /* Added window slide-in effect */
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    opacity: 0;
+    animation: fadeInUp 1s forwards;
+    animation-delay: 1.5s; /* Delay for input fields */
+}
+
+.contact-form button {
+    padding: 15px 25px;
+    background-color: #FFEB3B; /* Yellow color for the button */
+    color: rgb(240, 6, 6);
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    opacity: 0;
+    animation: fadeInUp 1s forwards;
+    animation-delay: 2s; /* Delay for button */
+}
+
+.contact-form button:hover {
+    background-color: #ff7043; /* Change button color on hover */
+}
+
+/* Animations */
+@keyframes windowSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

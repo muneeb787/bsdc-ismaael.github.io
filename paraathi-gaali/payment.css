@@ -1,0 +1,130 @@
+/* Payment Page Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('images/background2.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 100px; /* Ensure the body content doesn't overlap with the header */
+}
+
+/* Header Section */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #800020; /* Red background, matching order form */
+    padding: 20px 40px; /* Adjusted padding to give more space */
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow for header */
+    box-sizing: border-box;
+}
+
+/* Logo */
+header .logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Navigation */
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px; /* Increased gap for better visibility */
+    flex-wrap: wrap; /* Allow the items to wrap on small screens */
+    justify-content: flex-end; /* Make sure the items are aligned to the right */
+}
+
+header nav ul li a {
+    color: #FFEB3B; /* Yellow color for links, matching order form */
+    text-decoration: none;
+    font-size: 1.2rem; /* Increased font size for better readability */
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #ff7043;
+    transform: scale(1.1); /* Hover effect */
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    header nav ul {
+        flex-direction: column; /* Stack the items vertically on smaller screens */
+        gap: 15px; /* Adjusted gap for smaller screens */
+    }
+}
+
+
+
+/* Payment Section */
+.payment-content {
+    text-align: center;
+    margin-top: 150px;
+    padding: 30px;
+    background-color: #800020; /* Changed to the same red as the order form */
+    color: #FFEB3B; /* Yellow text */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.payment-content h2 {
+    font-size: 2.5rem;
+    color: #FFEB3B; /* Yellow color for the heading */
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.payment-options button {
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    background-color: #FFEB3B; /* Yellow color for buttons */
+    color: #800020; /* Red text */
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.payment-options button:hover {
+    background-color: #ff7043;
+    transform: scale(1.05); /* Slight scale on hover */
+}
+
+/* Order Summary */
+.order-summary {
+    margin-top: 30px;
+}
+
+.order-summary h3 {
+    font-size: 1.8rem;
+    color: #FFEB3B; /* Yellow color for section title */
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+#orderSummaryList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    color: #FFEB3B;
+}
+
+#orderSummaryList li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}

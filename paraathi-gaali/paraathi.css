@@ -1,0 +1,254 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('images/background2.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 60px;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0); /* Transparent background */
+    padding: 15px 20px;
+    z-index: 1000;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Logo */
+header .logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Makes the logo circular */
+    object-fit: cover; /* Ensures the image fills the circle */
+}
+
+/* Navigation */
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+header nav ul li a {
+    color: #FFEB3B; /* Yellow color for links */
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #ff7043;  /* Hover effect for links */
+    transform: scale(1.1);
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    background: url('images/background2.jpg') no-repeat center center/cover;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.hero-text {
+    z-index: 2;
+    position: relative;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #FFEB3B; /* Yellow color */
+    text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.6);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: slideInRight 2s ease-out;
+    text-align: center;
+    width: 100%; /* Ensure the text spans the full width */
+    margin: 0 auto;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    color: white;
+    margin-top: 10px;
+    animation: slideInRight 2s ease-out;
+}
+
+/* Food Pictures Section */
+.food-pictures {
+    display: flex;
+    justify-content: center; /* Align the images to the center */
+    gap: 20px;
+    padding: 50px 0;
+    width: 100%;
+    flex-wrap: nowrap; /* Ensure the images stay in one line */
+    align-items: center; /* Vertically center the images */
+    margin-left: 0; /* Reset any previous margin */
+    padding-left: 10px; /* Add a little padding on the left to fit the images properly */
+}
+
+.food-container img {
+    width: 33%;  /* Ensures 3 images fit in a row without overlapping */
+    height: auto; /* Keeps the aspect ratio */
+    object-fit: cover; /* Ensures the full image fills the container */
+    border-radius: 8px;
+}
+
+/* Location & Collection Section */
+.location-info {
+    background-color: rgba(235, 30, 30, 0.8); /* Semi-transparent pink */
+    color: #FFEB3B;
+    text-align: center;
+    padding: 50px;
+    margin-top: 50px;
+    border-radius: 10px;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(50px); /* Start lower */
+    transition: all 0.6s ease-out;
+}
+
+.location-info.visible {
+    opacity: 1; /* Make visible */
+    transform: translateY(0); /* Slide up to original position */
+}
+
+.location-info:hover {
+    transform: scale(1.05); /* Zoom effect on hover */
+}
+
+.location-info h3 {
+    font-size: 2rem;
+    color: #FFEB3B;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.location-info p {
+    font-size: 1.2rem;
+}
+
+/* Collection Info */
+.collection-info {
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 20px;
+    border-radius: 10px;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(50px); /* Start lower */
+    transition: all 0.6s ease-out;
+}
+
+.collection-info.visible {
+    opacity: 1; /* Make visible */
+    transform: translateY(0); /* Slide up to original position */
+}
+
+.collection-info:hover {
+    transform: scale(1.05); /* Zoom effect on hover */
+}
+
+.collection-info h3 {
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.collection-info p {
+    font-size: 1.2rem;
+}
+
+/* Animations */
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Sticky Navigation: Solid background after scroll */
+header.sticky {
+    background-color: #800020 /* Solid red background */
+}
+
+/* Footer Section */
+footer {
+    background-color: #800020; /* Red color */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9rem;
+    margin-top: 50px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        height: 60vh;
+    }
+
+    .hero-text {
+        font-size: 2rem;
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+    }
+
+    .food-pictures {
+        padding: 30px 0;
+    }
+
+    .food-container img {
+        width: 100%; /* Make the images take full width on mobile */
+    }
+
+    .location-info,
+    .collection-info {
+        padding: 30px;
+    }
+
+    .content {
+        padding: 30px 20px;
+    }
+}
