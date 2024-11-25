@@ -1,32 +1,32 @@
 // Menu Items with Prices
 const menuItems = {
     breakfast: [
-        { name: 'Desi Breakfast', price: '£6.50' },
-        { name: 'English Breakfast', price: '£6.50' },
-        { name: 'Puri Breakfast', price: '£6.50' }
+        { name: 'Desi Breakfast', price: '6.50' },
+        { name: 'English Breakfast', price: '6.50' },
+        { name: 'Puri Breakfast', price: '6.50' }
     ],
     paratha: [
-        { name: 'Classic Paratha', price: '£2.00' },
-        { name: 'Aloo Paratha', price: '£3.00' },
-        { name: 'Keema Paratha', price: '£3.50' },
-        { name: 'Nutella Paratha', price: '£2.50' }
+        { name: 'Classic Paratha', price: '2.00' },
+        { name: 'Aloo Paratha', price: '3.00' },
+        { name: 'Keema Paratha', price: '3.50' },
+        { name: 'Nutella Paratha', price: '2.50' }
     ],
     wraps: [
-        { name: 'Desi Wrap', price: '£4.50' },
+        { name: 'Desi Wrap', price: '4.50' },
     ],
     hotDrinks: [
-        { name: 'Classic Karak', price: '£2.50' },
-        { name: 'Masala Chai', price: '£2.50' },
-        { name: 'Doodh Patti', price: '£2.50' },
-        { name: 'Haldi Milk', price: '£2.50' }
+        { name: 'Classic Karak', price: '2.50' },
+        { name: 'Masala Chai', price: '2.50' },
+        { name: 'Doodh Patti', price: '2.50' },
+        { name: 'Haldi Milk', price: '2.50' }
     ],
     extras: [
-        { name: 'Puri', price: '£1.50' },
-        { name: 'Lahori Channa', price: '£2.50' },
-        { name: 'Halwa', price: '£3.00' },
-        { name: 'Masala Beans', price: '£2.00' },
-        { name: 'Chicken Sausage', price: '£1.50' },
-        { name: 'Hashbrown', price: '£1.50' }
+        { name: 'Puri', price: '1.50' },
+        { name: 'Lahori Channa', price: '2.50' },
+        { name: 'Halwa', price: '3.00' },
+        { name: 'Masala Beans', price: '2.00' },
+        { name: 'Chicken Sausage', price: '1.50' },
+        { name: 'Hashbrown', price: '1.50' }
     ]
 };
 
@@ -45,7 +45,7 @@ function populateCategoryDropdown(category) {
     categoryItems.forEach(item => {
         const option = document.createElement("option");
         option.value = item.name;
-        option.textContent = `${item.name} - ${item.price}`;
+        option.textContent = `${item.name} - £${item.price}`;
         categoryDropdown.appendChild(option);
     });
 }
@@ -94,7 +94,7 @@ function updateCart() {
     } else {
         cart.forEach((item, index) => {
             const listItem = document.createElement("li");
-            listItem.textContent = `${item.name} (${item.price})`;
+            listItem.textContent = `${item.name} (£${item.price})`;
 
             // Remove from cart button
             const removeButton = document.createElement("button");
@@ -110,44 +110,29 @@ function updateCart() {
     }
 }
 
-// Handle form submission (final order)
-document.getElementById("submitOrder").addEventListener("click", function () {
-    if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-    }
+// Handle Stripe Checkout
+const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU');  // Replace with your actual Stripe publishable key
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const specialInstructions = document.getElementById("specialInstructions").value;
+document.getElementById("checkout-button").addEventListener("click", function () {
+    console.log("Proceed to Payment clicked");  // Check if the button click is detected
+    const totalAmount = calculateTotalAmount();  // Calculate the total price of items in cart
 
-    const orderSummary = {
-        name,
-        email,
-        items: cart,
-        specialInstructions
-    };
-
-    // Store the order in localStorage
-    localStorage.setItem("orderSummary", JSON.stringify(orderSummary));
-
-    // Clear the cart after submission
-    cart = [];
-    updateCart(); // Update the cart display
-
-    // Redirect to payment page
-    window.location.href = "payment.html"; // Redirect to the payment page
+    fetch('http://localhost:3000/create-checkout-session', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount: totalAmount * 100, currency: 'GBP' }),
+    })    
+    .then((response) => response.json())
+    .then((session) => {
+        console.log("Session received: ", session);  // Check the session object returned
+        stripe.redirectToCheckout({ sessionId: session.id });
+    })
+    .catch((error) => console.error('Error:', error));
 });
 
-// Add Scroll Effect to Header
-window.addEventListener('scroll', function () {
-    const header = document.querySelector('header');
-
-    if (window.scrollY > 50) {
-        header.style.backgroundColor = 'transparent'; // Makes the header transparent when scrolled down
-        header.style.boxShadow = 'none'; // Remove the shadow
-    } else {
-        header.style.backgroundColor = '#800020'; // Restore the original color
-        header.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)'; // Restore shadow
-    }
-});
+// Calculate total amount
+function calculateTotalAmount() {
+    return cart.reduce((total, item) => total + parseFloat(item.price), 0);  // Sum up prices
+}
