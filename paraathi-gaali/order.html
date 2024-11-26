@@ -75,5 +75,35 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script src="order.js"></script>
 
+    <script>
+        // Stripe publishable key
+        const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU');  // Replace with your actual Stripe publishable key
+
+        document.getElementById("checkout-button").addEventListener("click", function () {
+            const totalAmount = calculateTotalAmount(); // Calculate the total price of items in cart
+
+            // Make a POST request to your backend to create a checkout session
+            fetch('http://localhost:3000/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ amount: totalAmount * 100, currency: 'GBP' })  // Amount is in cents, multiply by 100
+            })
+            .then((response) => response.json())
+            .then((session) => {
+                // Redirect to the Stripe Checkout page
+                stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .catch((error) => console.error('Error:', error));
+        });
+
+        // Function to calculate the total amount of the cart
+        function calculateTotalAmount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];  // Get cart from localStorage
+            return cart.reduce((total, item) => total + parseFloat(item.price.replace('£', '')), 0);
+        }
+    </script>
+
 </body>
 </html>

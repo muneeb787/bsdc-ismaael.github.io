@@ -2,29 +2,29 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const stripe = require('stripe')('sk_test_51QOgcwAWI44r05bCmg1tOcbblz7VGA1uI2zEmpD72f3LInenzFAbG3cqFaVaBkOsZ4CDyMAGwb8OkXvbBg4mdGM700QiLRjNOf');
+const stripe = require('stripe')('sk_test_51QOgcwAWI44r05bCmg1tOcbblz7VGA1uI2zEmpD72f3LInenzFAbG3cqFaVaBkOsZ4CDyMAGwb8OkXvbBg4mdGM700QiLRjNOf');  // Replace with your Stripe Secret Key
 
 const app = express();
 const port = 3000;
 
-// Middlewares
+// Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json());  // Parse incoming request bodies in JSON format
 
 // Serve static files (optional)
-app.use(express.static('public'));
+app.use(express.static('public'));  // Serve any static files from 'public' folder
 
 // Root route to confirm server is running
 app.get('/', (req, res) => {
     res.send('Server is up and running!');
 });
 
-// Success route
+// Success route after payment
 app.get('/success', (req, res) => {
     res.send('Payment was successful!');
 });
 
-// Cancel route
+// Cancel route if payment fails or is canceled
 app.get('/cancel', (req, res) => {
     res.send('Payment was canceled.');
 });
@@ -32,9 +32,9 @@ app.get('/cancel', (req, res) => {
 // POST endpoint to create a checkout session
 app.post('/create-checkout-session', async (req, res) => {
     try {
-        const { amount, currency } = req.body;
+        const { amount, currency } = req.body;  // Extract amount and currency from the request body
 
-        // Create the Checkout session
+        // Create a Stripe Checkout session
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],  // Accept card payments
             line_items: [
@@ -49,20 +49,19 @@ app.post('/create-checkout-session', async (req, res) => {
                     quantity: 1,  // Number of items in the cart
                 },
             ],
-            mode: 'payment',  // Set mode as 'payment'
-            success_url: 'http://localhost:3000/success',  // Success URL after payment
+            mode: 'payment',  // Set the mode as 'payment' (for one-time payments)
+            success_url: 'http://localhost:3000/success',  // URL to redirect on successful payment
             cancel_url: 'http://localhost:3000/cancel',    // URL to redirect if payment is canceled
         });
 
-        res.json({ id: session.id });  // Send session ID to frontend
+        res.json({ id: session.id });  // Send the session ID to the frontend
     } catch (error) {
-        console.error('Error creating checkout session:', error);
-        res.status(500).send('Internal Server Error');
+        console.error('Error creating checkout session:', error);  // Log the error
+        res.status(500).send('Internal Server Error');  // Send error response
     }
 });
 
 // Start the server
-app.listen(3000, () => {
-    console.log(`Server running on http://localhost:3000`);
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
 });
-
