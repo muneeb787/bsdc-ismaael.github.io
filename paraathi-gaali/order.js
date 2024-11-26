@@ -110,27 +110,29 @@ function updateCart() {
     }
 }
 
-// Handle Stripe Checkout
-const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU');  // Replace with your actual Stripe publishable key
+
+// Use Stripe's library already loaded in the HTML
+const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU'); // Put your actual Stripe public key here
 
 document.getElementById("checkout-button").addEventListener("click", function () {
-    console.log("Proceed to Payment clicked");  // Check if the button click is detected
-    const totalAmount = calculateTotalAmount();  // Calculate the total price of items in cart
+    const totalAmount = calculateTotalAmount(); // Calculate the total price of items in cart
 
-    fetch('http://localhost:3000/create-checkout-session', {  // Ensure this matches
+    // Make a POST request to your backend to create a checkout session
+    fetch('http://localhost:3000/create-checkout-session', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ amount: totalAmount * 100, currency: 'GBP' }),  // Convert amount to cents
-    })        
+        body: JSON.stringify({ amount: totalAmount * 100, currency: 'GBP' })  // Amount is in cents, multiply by 100
+    })
     .then((response) => response.json())
     .then((session) => {
-        console.log("Session received: ", session);  // Check the session object returned
+        // Redirect to the Stripe Checkout page
         stripe.redirectToCheckout({ sessionId: session.id });
     })
     .catch((error) => console.error('Error:', error));
 });
+
 
 // Calculate total amount
 function calculateTotalAmount() {

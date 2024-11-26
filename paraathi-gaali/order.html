@@ -72,7 +72,7 @@
     </section>
 
     <!-- External JavaScript File -->
-    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://js.stripe.com/v3/"></script> <!-- Don't redeclare stripe here -->
     <script src="order.js"></script>
 
     <script>
@@ -83,7 +83,7 @@
             const totalAmount = calculateTotalAmount(); // Calculate the total price of items in cart
 
             // Make a POST request to your backend to create a checkout session
-            fetch('http://localhost:3000/create-checkout-session', {
+            fetch('https://localhost:3000/create-checkout-session', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
