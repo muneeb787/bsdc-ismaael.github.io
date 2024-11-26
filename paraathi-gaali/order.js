@@ -117,13 +117,13 @@ document.getElementById("checkout-button").addEventListener("click", function ()
     console.log("Proceed to Payment clicked");  // Check if the button click is detected
     const totalAmount = calculateTotalAmount();  // Calculate the total price of items in cart
 
-    fetch('http://localhost:3000/create-checkout-session', {
+    fetch('http://localhost:3000/create-checkout-session', {  // Ensure this matches
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ amount: totalAmount * 100, currency: 'GBP' }),
-    })    
+        body: JSON.stringify({ amount: totalAmount * 100, currency: 'GBP' }),  // Convert amount to cents
+    })        
     .then((response) => response.json())
     .then((session) => {
         console.log("Session received: ", session);  // Check the session object returned

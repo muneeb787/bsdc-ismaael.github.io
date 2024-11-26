@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const stripe = require('stripe')('sk_test_51QOgcwAWI44r05bCmg1tOcbblz7VGA1uI2zEmpD72f3LInenzFAbG3cqFaVaBkOsZ4CDyMAGwb8OkXvbBg4mdGM700QiLRjNOf');
 
 const app = express();
-const port = 3001;
+const port = 3000;
 
 // Middlewares
 app.use(cors());
@@ -62,6 +62,7 @@ app.post('/create-checkout-session', async (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+app.listen(3000, () => {
+    console.log(`Server running on http://localhost:3000`);
 });
+
