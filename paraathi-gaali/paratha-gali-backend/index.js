@@ -76,5 +76,5 @@ app.post('/create-checkout-session', async (req, res) => {
 
 // Start the server using HTTPS
 https.createServer(sslOptions, app).listen(port, () => {
-    console.log(`Server running on https://localhost:${port}`);
+    console.log(`Server running on http://localhost:${port}`);
 });
