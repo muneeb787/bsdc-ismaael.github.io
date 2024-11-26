@@ -1,30 +1,5 @@
 // Stripe publishable key
-const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU');  // Replace with your actual Stripe public key
-
-document.getElementById("checkout-button").addEventListener("click", function () {
-    const totalAmount = calculateTotalAmount(); // Calculate the total price of items in cart
-
-    // Make a POST request to your backend to create a checkout session
-    fetch('http://localhost:3000/create-checkout-session', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ amount: totalAmount * 100, currency: 'GBP' })  // Amount is in cents, multiply by 100
-    })
-    .then((response) => response.json())
-    .then((session) => {
-        // Redirect the user to Stripe Checkout page
-        stripe.redirectToCheckout({ sessionId: session.id });
-    })
-    .catch((error) => console.error('Error:', error));
-});
-
-// Function to calculate the total amount of the cart
-function calculateTotalAmount() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];  // Get cart from localStorage
-    return cart.reduce((total, item) => total + parseFloat(item.price), 0);
-}
+const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU'); // Replace with your actual Stripe public key
 
 // Menu Items with Prices
 const menuItems = {
@@ -57,6 +32,9 @@ const menuItems = {
         { name: 'Hashbrown', price: 1.50 }
     ]
 };
+
+// Cart to hold selected items
+let cart = JSON.parse(localStorage.getItem('cart')) || [];  // Initialize cart from localStorage, or an empty array if not found
 
 // Populate the category items dropdown based on the selected category
 function populateCategoryDropdown(category) {
@@ -104,6 +82,9 @@ document.getElementById("addToCart").addEventListener("click", function () {
 
         cart.push(itemDetails);
 
+        // Save updated cart to localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+
         // Display cart items
         updateCart();
     }
@@ -126,6 +107,7 @@ function updateCart() {
             removeButton.textContent = "Remove";
             removeButton.onclick = () => {
                 cart.splice(index, 1); // Remove the item from the cart array
+                localStorage.setItem("cart", JSON.stringify(cart));  // Save updated cart
                 updateCart(); // Re-render the cart
             };
 
@@ -134,3 +116,31 @@ function updateCart() {
         });
     }
 }
+
+// Handle Stripe checkout button
+document.getElementById("checkout-button").addEventListener("click", function () {
+    const totalAmount = calculateTotalAmount(); // Calculate the total price of items in cart
+
+    // Make a POST request to your backend to create a checkout session
+    fetch('http://localhost:3000/create-checkout-session', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount: totalAmount * 100, currency: 'GBP' })  // Amount is in cents, multiply by 100
+    })
+    .then((response) => response.json())
+    .then((session) => {
+        // Redirect to the Stripe Checkout page
+        stripe.redirectToCheckout({ sessionId: session.id });
+    })
+    .catch((error) => console.error('Error:', error));
+});
+
+// Calculate total amount
+function calculateTotalAmount() {
+    return cart.reduce((total, item) => total + item.price, 0);  // Sum up prices directly as numbers
+}
+
+// Initial call to update the cart from localStorage
+updateCart();
