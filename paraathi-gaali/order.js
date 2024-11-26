@@ -1,5 +1,5 @@
 // Stripe publishable key
-const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU'); // Replace with your actual Stripe public key
+const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU'); // Your Stripe public key
 
 // Menu Items with Prices
 const menuItems = {
@@ -15,7 +15,7 @@ const menuItems = {
         { name: 'Nutella Paratha', price: 2.50 }
     ],
     wraps: [
-        { name: 'Desi Wrap', price: 4.50 },
+        { name: 'Desi Wrap', price: 4.50 }
     ],
     hotDrinks: [
         { name: 'Classic Karak', price: 2.50 },
@@ -32,9 +32,6 @@ const menuItems = {
         { name: 'Hashbrown', price: 1.50 }
     ]
 };
-
-// Initialize the cart as an empty array at the beginning
-let cart = [];
 
 // Populate the category items dropdown based on the selected category
 function populateCategoryDropdown(category) {
@@ -73,45 +70,39 @@ document.getElementById("addToCart").addEventListener("click", function () {
     const selectedCategory = document.getElementById("mealCategory").value;
 
     if (selectedItem) {
-        // Add to cart
         const itemDetails = {
             name: selectedItem,
             category: selectedCategory,
             price: menuItems[selectedCategory].find(item => item.name === selectedItem).price
         };
 
-        cart.push(itemDetails);  // Add item to the cart
-
-        // Store the cart in localStorage to persist cart data
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(itemDetails);
         localStorage.setItem('cart', JSON.stringify(cart));
 
-        // Display cart items
         updateCart();
     }
 });
 
 // Update the cart display
 function updateCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartList = document.getElementById("cartList");
-    cartList.innerHTML = '';  // Clear current cart items
+    cartList.innerHTML = '';
 
-    // If the cart is empty
     if (cart.length === 0) {
         cartList.innerHTML = '<li>Your cart is empty.</li>';
     } else {
-        // Display the cart items
         cart.forEach((item, index) => {
             const listItem = document.createElement("li");
             listItem.textContent = `${item.name} (£${item.price})`;
 
-            // Remove from cart button
             const removeButton = document.createElement("button");
             removeButton.textContent = "Remove";
             removeButton.onclick = () => {
-                cart.splice(index, 1); // Remove the item from the cart array
-                // Store the updated cart in localStorage
+                cart.splice(index, 1);
                 localStorage.setItem('cart', JSON.stringify(cart));
-                updateCart(); // Re-render the cart
+                updateCart();
             };
 
             listItem.appendChild(removeButton);
@@ -120,17 +111,17 @@ function updateCart() {
     }
 }
 
-// Handle checkout button click (Redirect to Stripe)
+// Stripe Checkout Button
 document.getElementById("checkout-button").addEventListener("click", function () {
     const totalAmount = calculateTotalAmount(); // Calculate the total price of items in cart
 
-    // Make a POST request to create a checkout session
+    // Make a POST request to your backend to create a checkout session
     fetch('http://localhost:3000/create-checkout-session', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ amount: totalAmount * 100, currency: 'GBP' })  // Amount is in cents
+        body: JSON.stringify({ amount: totalAmount * 100, currency: 'GBP' })
     })
     .then((response) => response.json())
     .then((session) => {
@@ -140,9 +131,8 @@ document.getElementById("checkout-button").addEventListener("click", function ()
     .catch((error) => console.error('Error:', error));
 });
 
-// Function to calculate the total amount of the cart
+// Calculate total amount
 function calculateTotalAmount() {
-    // Sum up the prices of all items in the cart
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];  // Get cart from localStorage
-    return cart.reduce((total, item) => total + parseFloat(item.price), 0);
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    return cart.reduce((total, item) => total + item.price, 0);
 }
