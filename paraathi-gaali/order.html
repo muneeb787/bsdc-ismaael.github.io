@@ -72,7 +72,7 @@
     </section>
 
     <!-- External JavaScript File -->
-    <script src="https://js.stripe.com/v3/"></script> <!-- Don't redeclare stripe here -->
+    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe library already included, no need to reinitialize it here -->
     <script src="order.js"></script>
 
     <script>
@@ -101,7 +101,7 @@
         // Function to calculate the total amount of the cart
         function calculateTotalAmount() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];  // Get cart from localStorage
-            return cart.reduce((total, item) => total + parseFloat(item.price.replace('£', '')), 0);
+            return cart.reduce((total, item) => total + parseFloat(item.price), 0);
         }
     </script>
 

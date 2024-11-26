@@ -13,8 +13,15 @@ const sslOptions = {
     cert: fs.readFileSync('server.crt'),
 };
 
+// Enable CORS for local development
+const corsOptions = {
+    origin: 'http://localhost:3000', // Allow requests from the frontend (localhost)
+    methods: 'GET,POST',  // Allow GET and POST methods
+    allowedHeaders: 'Content-Type',  // Allow specific headers
+};
+
 // Middlewares
-app.use(cors());
+app.use(cors(corsOptions));  // Use the updated CORS options
 app.use(bodyParser.json());
 
 // Serve static files (optional)
@@ -56,8 +63,8 @@ app.post('/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'payment',  // Set mode as 'payment'
-            success_url: 'https://localhost:3000/success',  // Success URL after payment
-            cancel_url: 'https://localhost:3000/cancel',    // URL to redirect if payment is canceled
+            success_url: 'http://localhost:3000/success',  // Success URL after payment
+            cancel_url: 'http://localhost:3000/cancel',    // URL to redirect if payment is canceled
         });
 
         res.json({ id: session.id });  // Send session ID to frontend

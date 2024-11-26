@@ -1,32 +1,32 @@
 // Menu Items with Prices
 const menuItems = {
     breakfast: [
-        { name: 'Desi Breakfast', price: '6.50' },
-        { name: 'English Breakfast', price: '6.50' },
-        { name: 'Puri Breakfast', price: '6.50' }
+        { name: 'Desi Breakfast', price: 6.50 },
+        { name: 'English Breakfast', price: 6.50 },
+        { name: 'Puri Breakfast', price: 6.50 }
     ],
     paratha: [
-        { name: 'Classic Paratha', price: '2.00' },
-        { name: 'Aloo Paratha', price: '3.00' },
-        { name: 'Keema Paratha', price: '3.50' },
-        { name: 'Nutella Paratha', price: '2.50' }
+        { name: 'Classic Paratha', price: 2.00 },
+        { name: 'Aloo Paratha', price: 3.00 },
+        { name: 'Keema Paratha', price: 3.50 },
+        { name: 'Nutella Paratha', price: 2.50 }
     ],
     wraps: [
-        { name: 'Desi Wrap', price: '4.50' },
+        { name: 'Desi Wrap', price: 4.50 },
     ],
     hotDrinks: [
-        { name: 'Classic Karak', price: '2.50' },
-        { name: 'Masala Chai', price: '2.50' },
-        { name: 'Doodh Patti', price: '2.50' },
-        { name: 'Haldi Milk', price: '2.50' }
+        { name: 'Classic Karak', price: 2.50 },
+        { name: 'Masala Chai', price: 2.50 },
+        { name: 'Doodh Patti', price: 2.50 },
+        { name: 'Haldi Milk', price: 2.50 }
     ],
     extras: [
-        { name: 'Puri', price: '1.50' },
-        { name: 'Lahori Channa', price: '2.50' },
-        { name: 'Halwa', price: '3.00' },
-        { name: 'Masala Beans', price: '2.00' },
-        { name: 'Chicken Sausage', price: '1.50' },
-        { name: 'Hashbrown', price: '1.50' }
+        { name: 'Puri', price: 1.50 },
+        { name: 'Lahori Channa', price: 2.50 },
+        { name: 'Halwa', price: 3.00 },
+        { name: 'Masala Beans', price: 2.00 },
+        { name: 'Chicken Sausage', price: 1.50 },
+        { name: 'Hashbrown', price: 1.50 }
     ]
 };
 
@@ -110,9 +110,7 @@ function updateCart() {
     }
 }
 
-
-// Use Stripe's library already loaded in the HTML
-const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU'); // Put your actual Stripe public key here
+// You don't need to declare stripe again here, it is already declared in your HTML
 
 document.getElementById("checkout-button").addEventListener("click", function () {
     const totalAmount = calculateTotalAmount(); // Calculate the total price of items in cart
@@ -133,8 +131,7 @@ document.getElementById("checkout-button").addEventListener("click", function ()
     .catch((error) => console.error('Error:', error));
 });
 
-
 // Calculate total amount
 function calculateTotalAmount() {
-    return cart.reduce((total, item) => total + parseFloat(item.price), 0);  // Sum up prices
+    return cart.reduce((total, item) => total + item.price, 0);  // Sum up prices directly as numbers
 }
