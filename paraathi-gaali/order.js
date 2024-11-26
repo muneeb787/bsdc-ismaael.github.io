@@ -115,24 +115,12 @@ function updateCart() {
 document.getElementById("checkout-button").addEventListener("click", function () {
     const totalAmount = calculateTotalAmount(); // Calculate the total price of items in cart
 
-    // Make a POST request to your backend to create a checkout session
-    fetch('http://localhost:3000/create-checkout-session', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ amount: totalAmount * 100, currency: 'GBP' })
-    })
-    .then((response) => response.json())
-    .then((session) => {
-        // Redirect the user to Stripe Checkout page
-        stripe.redirectToCheckout({ sessionId: session.id });
-    })
-    .catch((error) => console.error('Error:', error));
+    // Redirect the user to the Stripe payment page (Using your Stripe Payment Link)
+    window.location.href = 'https://buy.stripe.com/test_cN2bJycdKf1genScMM'; // This is your generated Stripe payment link
 });
 
 // Calculate total amount
 function calculateTotalAmount() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    return cart.reduce((total, item) => total + item.price, 0);
+    return cart.reduce((total, item) => total + item.price, 0); // Sum up prices
 }
