@@ -2,6 +2,8 @@ const express = require('express');
 const stripe = require('stripe')('sk_test_51QOgcwAWI44r05bCmg1tOcbblz7VGA1uI2zEmpD72f3LInenzFAbG3cqFaVaBkOsZ4CDyMAGwb8OkXvbBg4mdGM700QiLRjNOf'); // Your Stripe secret key
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+// Create an instance of the Express app
 const app = express();
 const port = 3000;
 
@@ -11,12 +13,9 @@ app.use(cors());
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
 
-// Serve static files from the current directory
-app.use(express.static(__dirname)); // __dirname points to the current directory
-
 // Route to serve the root page (order.html)
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/order.html'); // Make sure the file exists in the root directory
+    res.sendFile(__dirname + '/order.html'); // Ensure this file exists
 });
 
 // Route to create Stripe checkout session
@@ -40,8 +39,8 @@ app.post('/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: 'http://localhost:3000/success',  // Replace with actual success URL
-            cancel_url: 'http://localhost:3000/cancel',    // Replace with actual cancel URL
+            success_url: 'https://your-vercel-app-url/success',  // Replace with the actual success URL
+            cancel_url: 'https://your-vercel-app-url/cancel',    // Replace with the actual cancel URL
         });
 
         // Send the session ID to frontend
@@ -52,7 +51,5 @@ app.post('/create-checkout-session', async (req, res) => {
     }
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-});
+// Export the Express app as a Vercel Serverless function
+module.exports = app;
