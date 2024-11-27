@@ -1,5 +1,4 @@
-// Stripe publishable key
-const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU'); // Your Stripe public key
+const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU'); // Replace with actual publishable key
 
 // Menu Items with Prices
 const menuItems = {
@@ -88,6 +87,7 @@ document.getElementById("addToCart").addEventListener("click", function () {
 function updateCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartList = document.getElementById("cartList");
+    const totalAmount = calculateTotalAmount();
     cartList.innerHTML = '';
 
     if (cart.length === 0) {
@@ -108,19 +108,42 @@ function updateCart() {
             listItem.appendChild(removeButton);
             cartList.appendChild(listItem);
         });
+
+        document.getElementById("totalAmount").textContent = `Total: £${totalAmount.toFixed(2)}`;
     }
 }
-
-// Stripe Checkout Button
-document.getElementById("checkout-button").addEventListener("click", function () {
-    const totalAmount = calculateTotalAmount(); // Calculate the total price of items in cart
-
-    // Redirect the user to the Stripe payment page (Using your Stripe Payment Link)
-    window.location.href = 'https://buy.stripe.com/test_cN2bJycdKf1genScMM'; // This is your generated Stripe payment link
-});
 
 // Calculate total amount
 function calculateTotalAmount() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     return cart.reduce((total, item) => total + item.price, 0); // Sum up prices
 }
+
+// Redirect to Stripe payment using the backend (Node.js)
+document.getElementById("checkout-button").addEventListener("click", function () {
+    const totalAmount = calculateTotalAmount();
+    if (totalAmount === 0) {
+        alert("Your cart is empty. Please add items to your cart.");
+    } else {
+        // Send the total amount to the backend to create the Stripe session
+        fetch('http://localhost:3000/create-checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                amount: totalAmount * 100,  // Convert to cents
+                currency: 'GBP'
+            })
+        })
+        .then((response) => response.json())
+        .then((session) => {
+            // Redirect to Stripe Checkout page
+            stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert("Something went wrong. Please try again later.");
+        });
+    }
+});
