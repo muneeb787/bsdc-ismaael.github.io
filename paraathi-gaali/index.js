@@ -39,8 +39,9 @@ app.post('/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: 'https://your-vercel-app-url/success',  // Replace with the actual success URL
-            cancel_url: 'https://your-vercel-app-url/cancel',    // Replace with the actual cancel URL
+            success_url: 'https://paratha-gaali-your-vercel-link.vercel.app/success',
+            cancel_url: 'https://paratha-gaali-your-vercel-link.vercel.app/cancel',
+    // Replace with the actual cancel URL
         });
 
         // Send the session ID to frontend
