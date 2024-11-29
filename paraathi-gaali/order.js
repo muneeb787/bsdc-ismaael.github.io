@@ -127,7 +127,7 @@ async function createCheckoutSession() {
     }
 
     try {
-        const response = await fetch('http://localhost:4242/create-checkout-session', {
+        const response = await fetch('https://stripe-backend-ashy.vercel.app/create-checkout-session', { // Use the live backend URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
