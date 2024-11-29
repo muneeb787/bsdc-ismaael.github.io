@@ -8,7 +8,6 @@
 </head>
 <body>
 
-    <!-- Header Section -->
     <header>
         <div class="logo">
             <img src="images/website_logo.JPG" alt="Paratha Gali Logo">
@@ -23,19 +22,16 @@
         </nav>
     </header>
 
-    <!-- Order Form Section -->
     <section class="content">
         <h2>Order Form</h2>
 
         <form id="orderForm">
-            <!-- Customer Details -->
             <label for="name">Your Name:</label>
             <input type="text" id="name" placeholder="Your Name" required>
 
             <label for="email">Your Email:</label>
             <input type="email" id="email" placeholder="Your Email" required>
 
-            <!-- Select Meal Category -->
             <label for="mealCategory">Select Meal Category:</label>
             <select id="mealCategory" name="mealCategory" required>
                 <option value="">-- Select --</option>
@@ -46,11 +42,9 @@
                 <option value="extras">Extras</option>
             </select>
 
-            <!-- Additional Dropdown for selecting specific items -->
             <div id="additionalOptions" style="display: none;">
                 <label for="categoryItems">Select Item:</label>
                 <select id="categoryItems" name="categoryItems">
-                    <!-- Items will be dynamically populated here -->
                 </select>
                 <button type="button" id="addToCart">Add to Cart</button>
             </div>
@@ -60,17 +54,14 @@
 
         </form>
 
-        <!-- Cart Section -->
         <h3 id="cartTitle">Your Cart</h3>
         <ul id="cartList"></ul>
         <p id="totalAmount">Total: £0.00</p>
 
-        <!-- Stripe Checkout Button -->
-        <button id="checkout-button">Proceed to Payment</button>
+        <button id="checkoutButton">Checkout</button>
     </section>
 
-    <!-- External JavaScript File -->
-    <script src="https://js.stripe.com/v3/"></script>
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
     <script src="order.js"></script>
 
 </body>

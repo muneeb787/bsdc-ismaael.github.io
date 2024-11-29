@@ -1,5 +1,3 @@
-const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU'); // Replace with actual publishable key
-
 // Menu Items with Prices
 const menuItems = {
     breakfast: [
@@ -32,7 +30,7 @@ const menuItems = {
     ]
 };
 
-// Populate the category items dropdown based on the selected category
+// Function to populate the category items dropdown based on selected category
 function populateCategoryDropdown(category) {
     const categoryItems = menuItems[category];
     const categoryDropdown = document.getElementById("categoryItems");
@@ -40,7 +38,7 @@ function populateCategoryDropdown(category) {
     // Clear the current dropdown options
     categoryDropdown.innerHTML = '';
 
-    // Add new options
+    // Add new options for the selected category
     categoryItems.forEach(item => {
         const option = document.createElement("option");
         option.value = item.name;
@@ -49,7 +47,7 @@ function populateCategoryDropdown(category) {
     });
 }
 
-// Handle category selection and show the additional item dropdown
+// Handle category selection
 document.getElementById("mealCategory").addEventListener("change", function () {
     const category = this.value;
 
@@ -58,7 +56,7 @@ document.getElementById("mealCategory").addEventListener("change", function () {
         document.getElementById("additionalOptions").style.display = "block";
         populateCategoryDropdown(category);
     } else {
-        // Hide additional options dropdown
+        // Hide additional options dropdown if no category selected
         document.getElementById("additionalOptions").style.display = "none";
     }
 });
@@ -79,7 +77,7 @@ document.getElementById("addToCart").addEventListener("click", function () {
         cart.push(itemDetails);
         localStorage.setItem('cart', JSON.stringify(cart));
 
-        updateCart();
+        updateCart();  // Update cart display after adding
     }
 });
 
@@ -102,7 +100,7 @@ function updateCart() {
             removeButton.onclick = () => {
                 cart.splice(index, 1);
                 localStorage.setItem('cart', JSON.stringify(cart));
-                updateCart();
+                updateCart();  // Re-update the cart
             };
 
             listItem.appendChild(removeButton);
@@ -119,31 +117,40 @@ function calculateTotalAmount() {
     return cart.reduce((total, item) => total + item.price, 0); // Sum up prices
 }
 
-// Redirect to Stripe payment using the backend (Node.js)
-document.getElementById("checkout-button").addEventListener("click", function () {
-    const totalAmount = calculateTotalAmount();
-    if (totalAmount === 0) {
-        alert("Your cart is empty. Please add items to your cart.");
-    } else {
-        // Send the total amount to the backend to create the Stripe session
-        fetch('http://localhost:3000/create-checkout-session', {
+// Checkout Function
+async function createCheckoutSession() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:4242/create-checkout-session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                amount: totalAmount * 100,  // Convert to cents
-                currency: 'GBP'
-            })
-        })
-        .then((response) => response.json())
-        .then((session) => {
-            // Redirect to Stripe Checkout page
-            stripe.redirectToCheckout({ sessionId: session.id });
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert("Something went wrong. Please try again later.");
+            body: JSON.stringify({ cart }),
         });
+
+        const session = await response.json();
+
+        if (session.url) {
+            localStorage.removeItem('cart'); // Clear the cart before redirecting
+            window.location.href = session.url; // Redirect to Stripe Checkout
+        } else {
+            alert('Failed to create checkout session');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while creating the checkout session.');
     }
-});
+}
+
+// Add event listener to the checkout button
+document.getElementById("checkoutButton").addEventListener("click", createCheckoutSession);
+
+// Initialize cart display on page load
+updateCart();
