@@ -45,6 +45,7 @@
             <div id="additionalOptions" style="display: none;">
                 <label for="categoryItems">Select Item:</label>
                 <select id="categoryItems" name="categoryItems">
+                    <!-- Options will be dynamically added here based on the selected category -->
                 </select>
                 <button type="button" id="addToCart">Add to Cart</button>
             </div>
@@ -61,7 +62,9 @@
         <button id="checkoutButton">Checkout</button>
     </section>
 
-    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+    <!-- Include Stripe.js Script -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- Order.js Script -->
     <script src="order.js"></script>
 
 </body>

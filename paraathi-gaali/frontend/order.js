@@ -1,3 +1,6 @@
+// Initialize Stripe.js with your Publishable Key
+const stripe = Stripe('pk_test_51QOgcwAWI44r05bC9xKGFmvEI6bhq1CVjxcTEQ1swqa0fMbW953QXSRyuhXMzSBU5Xw0Xt98GqrwFihE01EfC9oM00NH0yA5ZU'); // Replace with your actual publishable key
+
 // Menu Items with Prices
 const menuItems = {
     breakfast: [
@@ -30,21 +33,20 @@ const menuItems = {
     ]
 };
 
-// Function to populate the category items dropdown based on selected category
+// Populate category dropdown dynamically
 function populateCategoryDropdown(category) {
     const categoryItems = menuItems[category];
     const categoryDropdown = document.getElementById("categoryItems");
-
-    // Clear the current dropdown options
     categoryDropdown.innerHTML = '';
 
-    // Add new options for the selected category
-    categoryItems.forEach(item => {
-        const option = document.createElement("option");
-        option.value = item.name;
-        option.textContent = `${item.name} - £${item.price}`;
-        categoryDropdown.appendChild(option);
-    });
+    if (categoryItems) {
+        categoryItems.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item.name;
+            option.textContent = `${item.name} - £${item.price}`;
+            categoryDropdown.appendChild(option);
+        });
+    }
 }
 
 // Handle category selection
@@ -52,40 +54,41 @@ document.getElementById("mealCategory").addEventListener("change", function () {
     const category = this.value;
 
     if (category) {
-        // Show additional options dropdown
         document.getElementById("additionalOptions").style.display = "block";
         populateCategoryDropdown(category);
     } else {
-        // Hide additional options dropdown if no category selected
         document.getElementById("additionalOptions").style.display = "none";
     }
 });
 
-// Add the selected item to the cart
+// Add items to cart
 document.getElementById("addToCart").addEventListener("click", function () {
     const selectedItem = document.getElementById("categoryItems").value;
     const selectedCategory = document.getElementById("mealCategory").value;
 
-    if (selectedItem) {
+    if (selectedItem && selectedCategory) {
         const itemDetails = {
             name: selectedItem,
             category: selectedCategory,
-            price: menuItems[selectedCategory].find(item => item.name === selectedItem).price
+            price: menuItems[selectedCategory]?.find(item => item.name === selectedItem)?.price || 0
         };
 
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         cart.push(itemDetails);
         localStorage.setItem('cart', JSON.stringify(cart));
 
-        updateCart();  // Update cart display after adding
+        updateCart();
+    } else {
+        alert("Please select an item to add.");
     }
 });
 
-// Update the cart display
+// Update cart display
 function updateCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartList = document.getElementById("cartList");
     const totalAmount = calculateTotalAmount();
+
     cartList.innerHTML = '';
 
     if (cart.length === 0) {
@@ -93,14 +96,14 @@ function updateCart() {
     } else {
         cart.forEach((item, index) => {
             const listItem = document.createElement("li");
-            listItem.textContent = `${item.name} (£${item.price})`;
+            listItem.textContent = `${item.name} (£${item.price.toFixed(2)})`;
 
             const removeButton = document.createElement("button");
             removeButton.textContent = "Remove";
             removeButton.onclick = () => {
                 cart.splice(index, 1);
                 localStorage.setItem('cart', JSON.stringify(cart));
-                updateCart();  // Re-update the cart
+                updateCart();
             };
 
             listItem.appendChild(removeButton);
@@ -114,34 +117,44 @@ function updateCart() {
 // Calculate total amount
 function calculateTotalAmount() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    return cart.reduce((total, item) => total + item.price, 0); // Sum up prices
+    return cart.reduce((total, item) => total + item.price, 0);
 }
 
-// Checkout Function
+// Create Stripe Checkout session
 async function createCheckoutSession() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const customerEmail = document.getElementById("email").value;
 
     if (cart.length === 0) {
         alert("Your cart is empty!");
         return;
     }
 
+    if (!customerEmail) {
+        alert("Please enter your email!");
+        return;
+    }
+
     try {
-        const response = await fetch('https://stripe-backend-ashy.vercel.app/create-checkout-session', { // Use the live backend URL
+        const response = await fetch('https://stripe-backend-q2d1zai0r-ismaaels-projects.vercel.app/create-checkout-session', { // Updated Backend URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ cart }),
+            body: JSON.stringify({ items: cart }),
         });
+
+        if (!response.ok) {
+            throw new Error('Failed to create checkout session. Please check your backend.');
+        }
 
         const session = await response.json();
 
-        if (session.url) {
-            localStorage.removeItem('cart'); // Clear the cart before redirecting
-            window.location.href = session.url; // Redirect to Stripe Checkout
+        if (session.id) {
+            // Redirect to Stripe Checkout
+            stripe.redirectToCheckout({ sessionId: session.id });
         } else {
-            alert('Failed to create checkout session');
+            alert('Failed to create Stripe Checkout session');
         }
     } catch (error) {
         console.error('Error:', error);
@@ -149,8 +162,9 @@ async function createCheckoutSession() {
     }
 }
 
-// Add event listener to the checkout button
+
+// Attach checkout functionality to button
 document.getElementById("checkoutButton").addEventListener("click", createCheckoutSession);
 
-// Initialize cart display on page load
+// Initialize cart on page load
 updateCart();

@@ -1,0 +1,9 @@
+{
+    "rewrites": [
+      {
+        "source": "/",
+        "destination": "/paraathi.html"
+      }
+    ]
+  }
+  
